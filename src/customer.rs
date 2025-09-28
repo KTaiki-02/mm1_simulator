@@ -1,7 +1,8 @@
 /// 顧客を表す構造体
-/// 
+///
 /// `Customer` は到着時刻、サービス開始・終了時刻を持ち、
 /// 待ち時間や滞在時間を計算するメソッドを提供する。
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Customer {
     pub customer_id: u64,
     pub arrival_time: f64,
