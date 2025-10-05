@@ -15,8 +15,6 @@
 //! - `f64` の比較には `NaN` を含まない前提で `unwrap()` を使用
 //! - `BinaryHeap` や `.sort()` に対応するため `Ord` を明示的に実装
 
-
-
 /// use crate::customer;
 use std::cmp::Ordering;
 
@@ -34,7 +32,7 @@ pub struct Event {
     pub service_time: Option<f64>,
 }
 impl Event {
-    fn new(time: f64, event_type: EventType, customer_id: u64) -> Self {
+    pub fn new(time: f64, event_type: EventType, customer_id: u64) -> Self {
         Event {
             time,
             event_type,
@@ -73,7 +71,10 @@ impl PartialOrd for Event {
 /// `NaN` を含まない前提で使うこと。
 impl Ord for Event {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.partial_cmp(other).unwrap()
+        other
+            .time
+            .partial_cmp(&self.time)
+            .unwrap_or(Ordering::Equal)
     }
 }
 
